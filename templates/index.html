@@ -7,10 +7,56 @@
     <title>Korean Study Agent</title>
     <!-- 页面设置 -->
     <style>
+        
+        body{
+            /*  
+            Arial： 这是全世界装机量最高的字体之一（Windows 和 macOS 都有）。它干净、现代、易读。
+            Sans-serif (无衬线)： 就是 Arial 这种。笔画直来直去，没有多余的装饰。
+            */
+            font-family: Arial,Sans-serif;
+            max-width: 900px;
+            /* 自动居中 */
+            margin:40px auto;
+            /* 上内边距0 左右内边距16px */
+            padding:0 16px;
+            /* 行间距1.6 */
+            line-height: 1.6;
+        }
+        
+        textarea{
+            width: 100%;
+            min-height: 100px;
+            padding:12px;
+            font-size: 16px;
+        }
+
+        button{
+            /* 微调元素与它上方邻居 */
+            margin-top: 12px;
+            padding:10px 18px;
+            font-size: 16px;
+
+            /* 鼠标变手指 */
+            cursor: pointer;
+        }
         .muted {
             color: #666;
             font-size: 14px;
         }
+        .card{
+            border:1px solid #ddd;
+            border-radius: 10px;
+
+            /*  填充内容和边框16像素 */
+            padding: 16px;  
+            /* 盒子上面增加20px的距离 */
+            margin-top: 20px;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+            }
     </style>
 </head>
 
@@ -24,8 +70,23 @@
     <textarea id="message" placeholder="例如：帮我安排今晚30分钟的韩语复习，并出3道题"></textarea>
     <br />
     <button id="sendBtn">发送</button>
+    
+    <div class="card">
+        <h3>助手回复</h3>
+        <pre id="reply">还没有内容</pre>
+      </div>
 
-    <div class="card"></div>
+    <div class="card">
+        <h3>工具调用日志</h3>
+        <pre id="tools">还没有内容</pre>
+    </div>
+
+    <div class="card">
+        <h3>练习题</h3>
+        <pre id="quiz">还没有内容</pre>
+    </div>
+
+    <script src="/static/app.js"></script>
 </body>
 
 </html>

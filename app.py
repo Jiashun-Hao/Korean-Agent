@@ -46,7 +46,6 @@ def create_app():
     #当前端向/api/chat这个地址发送POST请求的时候，执行下面的函数
     @app.route("/api/chat",methods=["POST"])
     def chat():
-        app=Flask(__name__)
         data =request.get_json(silent=True) or {} #解析失败，返回None
         
         # 取出用户信息
