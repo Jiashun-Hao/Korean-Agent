@@ -20,9 +20,9 @@
 //找HTML里面的id
 const sendBtn = document.getElementById("sendBtn");
 const messageEl = document.getElementById("message"); //输入框
-const replyEl = document.getelementsById("reply");
-const toolsEl = document.getelementsById("tools");
-const quizEl=document.getelementsById("quiz");
+const replyEl = document.getElementById("reply");
+const toolsEl = document.getElementById("tools");
+const quizEl=document.getElementById("quiz");
 
 //给按钮添加一个click以后的动作
 //addEventListener元素监听器
@@ -70,7 +70,7 @@ sendBtn.addEventListener("click",async()=>{
 
         //显示返回结果到页面
         replyEl.textContent= data.reply || "" //|| or
-        toolsEL.textContent= (data.tool_logs || []).join("\n"); //data.tool_logs有内容就用这个，没有就用空数组
+        toolsEl.textContent = (data.tool_logs || []).join("\n"); //data.tool_logs有内容就用这个，没有就用空数组
         //join("\n") 多字符连接加换行
         
         
@@ -78,12 +78,12 @@ sendBtn.addEventListener("click",async()=>{
         //把返回的题目数组处理为合适的文字
         const quizeText=(data.quiz || []).map(
             (item,index)=>{
-                return '${index+1}. ${item.question}\n答案：${item.answer}\n说明：${item.explanation}';
+                return `${index+1}. ${item.question}\n答案：${item.answer}\n说明：${item.explanation}`;
             }
         ).join("\n\n");
         quizEl.textContent=quizeText || "没有生成题目";
     } catch (error) {
-        replyEl.textContent ='出错了：${err.message}';
+        replyEl.textContent = `出错了：${error.message}`;
     }
 
 });

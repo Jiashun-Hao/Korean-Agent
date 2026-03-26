@@ -3,7 +3,7 @@ from services.study_service import get_recent_wrong_answers,get_weak_grammar_poi
 from services.quiz_service import generate_quiz
 
 def run_local_agent(user_message: str):
-    weak_points=get_weak_grammar_points
+    weak_points=get_weak_grammar_points()
     recent_wrong=get_recent_wrong_answers(limit=3)
 
     if weak_points: #weak_points:不为空
