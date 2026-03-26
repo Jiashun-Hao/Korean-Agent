@@ -48,10 +48,42 @@ sendBtn.addEventListener("click",async()=>{
 
     //处理请求，捕获异常
     try {
+        //向后端发送请求
+
+        //await fetch:等待fetch（是浏览器里用来发送网络请求的函数）拿到结果以后再执行
+        //请求地址为/api/chat
+        const res= await fetch("/api/chat",{
+
+            method:"POST", //POST：提交数据，GET获取数据
+            headers:{
+                "Content-Type":"application/json" //发送的数据的是JSON格式
+            },
+            body: JSON.stringify({message}) //JSON.stringify：变成json的字符串
+        });
+
+        //获取响应的数据，把格式变为json
+        const data =await res.json();
+
+        if (!res.ok){ //res.ok是一个布尔值 成功：200，失败 400 、 500
+            throw new Error(data.error || "请求失败");
+        }
+
+        //显示返回结果到页面
+        replyEl.textContent= data.reply || "" //|| or
+        toolsEL.textContent= (data.tool_logs || []).join("\n"); //data.tool_logs有内容就用这个，没有就用空数组
+        //join("\n") 多字符连接加换行
         
         
+        //处理quiz题目数据
+        //把返回的题目数组处理为合适的文字
+        const quizeText=(data.quiz || []).map(
+            (item,index)=>{
+                return '${index+1}. ${item.question}\n答案：${item.answer}\n说明：${item.explanation}';
+            }
+        ).join("\n\n");
+        quizEl.textContent=quizeText || "没有生成题目";
     } catch (error) {
-        
+        replyEl.textContent ='出错了：${err.message}';
     }
 
-})
+});
