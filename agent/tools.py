@@ -1,15 +1,14 @@
-#列表，说明TOOLS是什么
 TOOLS = [
     {
         "type": "function",
         "name": "get_recent_wrong_answers",
-        "description": "최근 사용자의 오답 기록을 조회한다.",
+        "description": "获取用户最近的错题记录，用于分析最近的学习弱点。",
         "parameters": {
             "type": "object",
             "properties": {
                 "limit": {
                     "type": "integer",
-                    "description": "가져올 오답 개수"
+                    "description": "返回的错题数量，默认 5"
                 }
             },
             "required": []
@@ -18,26 +17,27 @@ TOOLS = [
     {
         "type": "function",
         "name": "get_weak_grammar_points",
-        "description": "사용자가 자주 틀리는 문법 포인트를 조회한다.",
+        "description": "统计用户最容易出错的语法点。",
         "parameters": {
             "type": "object",
-            "properties": {}
+            "properties": {},
+            "required": []
         }
     },
     {
         "type": "function",
         "name": "generate_quiz",
-        "description": "특정 문법 주제로 연습문제를 생성한다.",
+        "description": "根据指定语法点生成练习题。",
         "parameters": {
             "type": "object",
             "properties": {
                 "topic": {
                     "type": "string",
-                    "description": "문법 포인트 이름"
+                    "description": "要练习的语法点名称"
                 },
                 "count": {
                     "type": "integer",
-                    "description": "문제 개수"
+                    "description": "题目数量，默认 3"
                 }
             },
             "required": ["topic"]
