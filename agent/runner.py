@@ -59,7 +59,7 @@ def run_openai_agent(user_message: str): #用户输入的消息会传入这里
 
     function_calls=[] #如果模型决定调用工具，就把调用的工具信息记录
     for item in response.output:
-        if item.type == "cunction_call":
+        if item.type == "function_call":
             function_calls.append(item)
 
     if not function_calls: #如果工具记录是空的，那么就说明模型没有调用任何工具直接输出，或者发生错误没有内容
@@ -89,7 +89,7 @@ def run_openai_agent(user_message: str): #用户输入的消息会传入这里
             "output":json.dumps(result,ensure_ascii=False)
         })
 
-    second_resopnse=client.response.create(
+    second_resopnse=client.responses.create(
         model="gpt-4.1",
         instructions=SYSTEM_PROMPT,
         previous_response_id=response.id,
@@ -110,7 +110,10 @@ def run_openai_agent(user_message: str): #用户输入的消息会传入这里
        except Exception:
            pass     
     return {
-        
+            "reply":extract_text_from_response(second_resopnse) or "暂时没有内容",
+            "tool_logs": tool_logs,
+            "quiz":quiz,
+
     }      
 def run_local_agent(user_message: str):
     weak_points=get_weak_grammar_points()

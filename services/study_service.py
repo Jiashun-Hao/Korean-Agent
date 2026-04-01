@@ -20,14 +20,14 @@ def get_recent_wrong_answers(limit: int = 5):
     # LIMIT ? 限制最多返回多少条记录。
 
     # (limit,) 表示“只有一个元素的元组”
-    cur.execute
-    (
+    cur.execute(
         """
-            SELECT id, grammar_point, question, user_answer, correct_answer, created_at
-            FROM wrong_answers
-            ORDER BY created_at DESC
-            LIMIT ? 
-        """, (limit,)
+        SELECT id, grammar_point, question, user_answer, correct_answer, created_at
+        FROM wrong_answers
+        ORDER BY created_at DESC
+        LIMIT ?
+        """,
+        (limit,)
     )
 
     # cur.fetchall(): 把刚才 SQL 查询到的所有结果都取出来。

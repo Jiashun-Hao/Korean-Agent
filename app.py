@@ -17,11 +17,14 @@ from dotenv import load_dotenv
 # 用来读取前端发过来的请求数据
 from flask import Flask, jsonify, render_template,request
 
+load_dotenv()
+
 from services.db import init_db, seed_demo_data
-from agent.runner import run_local_agent
+#from agent.runner import run_local_agent
+from agent.runner import run_openai_agent
 
 #加载.env的配置文件
-load_dotenv()
+
 
 
 def create_app():
@@ -56,7 +59,9 @@ def create_app():
         
         #调用本地的Agent
         #把用户输入的 message 交给 run_local_agent() 处理。
-        result = run_local_agent(message)
+
+        #result = run_local_agent(message)
+        result=run_openai_agent(message)
 
         #把 Python 字典 result 转成 JSON 响应发回给前端。
         return jsonify(result)
